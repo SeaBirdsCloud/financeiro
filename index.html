@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Controle Financeiro</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <header>
+    <h1>Controle Financeiro</h1>
+  </header>
+
+  <main>
+    <section>
+      <h2>Adicionar Transação</h2>
+      <label for="descricao">Descrição:</label>
+      <input type="text" id="descricao" placeholder="Descrição da transação">
+
+      <label for="valor">Valor:</label>
+      <input type="text" id="valor" placeholder="Valor da transação">
+
+      <label for="data">Data:</label>
+      <input type="date" id="data">
+
+      <label for="tags">Tags:</label>
+      <input type="text" id="tags" placeholder="Ex.: Alimentação, Lazer">
+
+      <button onclick="adicionarTransacao('Renda')">Adicionar Renda</button>
+      <button onclick="adicionarTransacao('Gasto')">Adicionar Gasto</button>
+    </section>
+
+    <section>
+      <h2>Opções de Filtro e Ordenação</h2>
+      
+      <!-- Escolha do critério de filtro -->
+      <label for="filtro-opcao">Categoria:</label>
+      <select id="filtro-opcao" onchange="atualizarInterface()">
+        <option value="tags">Tags</option>
+        <option value="tipo">Tipo</option>
+        <option value="ambos">Tags e Tipo</option>
+      </select>
+    
+      <!-- Filtro por tags -->
+      <label for="filtro-tags">Tags:</label>
+      <input type="text" id="filtro-tags" placeholder="Digite uma ou mais tags separadas por vírgula">
+    
+      <!-- Filtro por tipo de transação (Renda ou Gasto) -->
+      <label for="filtro-tipo">Tipo:</label>
+      <select id="filtro-tipo">
+        <option value="todos">Todos</option>
+        <option value="renda">Rendimentos</option>
+        <option value="gasto">Gastos</option>
+      </select>
+      
+      <!-- Filtro de ordenação -->
+      <label for="ordenar-por">Ordenar por:</label>
+      <select id="ordenar-por" onchange="ordenarTabela()">
+        <option value="tipo">Tipo</option>
+        <option value="valor">Valor</option>
+        <option value="data">Data</option>
+        <option value="descricao">Descrição</option>
+      </select>
+    
+      <button onclick="filtrarTabela()">Aplicar Filtro</button>
+      <button onclick="limparFiltros()">Limpar Filtros</button>
+    </section>        
+
+    <section>
+      <h2>Transações</h2>
+      <table id="tabela-financeira">
+        <thead>
+          <tr>
+            <th>Tipo</th>
+            <th>Valor</th>
+            <th>Data</th>
+            <th>Descrição</th>
+            <th>Tags</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </section>
+
+    
+
+    <section>
+      <h2>Distribuição de Gastos</h2>
+      <canvas id="graficoPizza" width="400" height="400"></canvas>
+    </section>
+
+    
+    <section>
+      <h2>Resumo</h2>
+      <p>Saldo: <span id="saldo">0.00</span></p>
+      <p>Total Ganho no Mês: <span id="total-ganho-mes">0.00</span></p>
+      <p>Total Gasto no Mês: <span id="total-gasto-mes">0.00</span></p>
+    </section>
+
+    <section>
+      <button onclick="exportarDados()">Baixar Dados</button>
+      <input type="file" id="importar-arquivo" accept=".json">
+      <button onclick="importarDados()">Importar Dados</button>
+    </section>    
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
